@@ -1,0 +1,83 @@
+html,body{
+    margin:0 auto;
+    width:800px;
+    padding:0;
+    background-color: rgb(193, 240, 228);
+    border-style: groove;
+    border-width: 3px;
+    border-color: cadetblue;
+}
+.head-point{
+    border-width: 1px;
+    width:20px;
+    background-color:blue;
+}
+#showData{
+    width:200px;
+}
+#contant.head{
+    float:left;
+    width: 400px;
+    clear:both;
+}
+#data{
+    width: 800px;
+    clear: both;
+}
+#list{
+    width:160px;
+    float: left;
+    text-align:center;
+}
+#number{
+    width:160px;
+    float: left;
+    font-size: 50px;
+    color: darkred;
+}
+#text{
+    width:160px;
+    float: left;
+}
+#compane{
+    width:160px;
+    float: left;
+    font-size: 15px;
+    color: goldenrod;
+}
+.head{
+    width: 800px;
+    clear: both;
+    text-align:center;
+}
+button{
+    display:block;
+    width: 400px;
+    float:left;
+}
+#newsList{
+    width:400px;
+    clear: both;
+}
+#title{
+    width:800px;
+    display:block;
+    clear: both;
+    text-align: center;
+}
+#introducte{
+    width:700px;
+    display:block;
+    clear: both;
+    text-align: left;
+}
+#more{
+    width:800px;
+    display:block;
+    clear: both;
+    text-align: center;
+}
+#back{
+    font-size:small;
+    width:80px;
+}
