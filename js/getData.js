@@ -55,7 +55,7 @@ function timeData() {
     };
     return Data;
 }
-function GET_areaData(){
+function GET_areaData(i,provinceName){
     var areaData;
     $.ajax({
         async: false,
@@ -63,7 +63,8 @@ function GET_areaData(){
         url: 'https://lab.isaaclin.cn/nCoV/api/area',
         dataType: 'json',
         data: {
-            latest: 1,
+            latest: i,
+            province: provinceName
         },
         error: function (XmlHttpRequest, textStatus, errorThrown) {
             alert("操作失败!");
@@ -77,7 +78,7 @@ function GET_areaData(){
 }
 function datein() {
     var n = 0;
-    var areaData=GET_areaData();
+    var areaData=GET_areaData(1,null);
     var data = new Array();
     areaData.forEach(element => {
         if (element.countryName == "中国") {
