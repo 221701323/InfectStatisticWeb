@@ -1,6 +1,6 @@
 html,body{
     margin:0 auto;
-    width:800px;
+    width:1000px;
     padding:0;
     background-color: rgb(193, 240, 228);
 }
@@ -32,27 +32,27 @@ span.head-point{
     left:10px;
 }
 #showData{
-    width:200px;
+    width:300px;
     margin-top: 50px;
     margin-bottom: 150px;
 }
 #contant.head{
     float:left;
-    width: 400px;
+    width: 500px;
     clear:both;
 }
 #data{
-    width: 800px;
+    width: 1000px;
     clear: both;
     margin: 20px auto 50px auto;
 }
 #list{
-    width:160px;
+    width:200px;
     float: left;
     text-align:center;
 }
-#number{
-    width:130px;
+#currentConfirmedCount_number{
+    width:150px;
     float: left;
     font-size: 30px;
     color: darkred;
@@ -60,22 +60,58 @@ span.head-point{
     text-align: center;
     border-radius:8px;
 }
-#text{
-    width:130px;
+#nowConfirmed_number{
+    width:150px;
+    float: left;
+    font-size: 30px;
+    color: darkred;
+    background-color: white;
+    text-align: center;
+    border-radius:8px;
+}
+#seemConfirmed_number{
+    width:150px;
+    float: left;
+    font-size: 30px;
+    color: darkred;
+    background-color: white;
+    text-align: center;
+    border-radius:8px;
+}
+#cure_number{
+    width:150px;
+    float: left;
+    font-size: 30px;
+    color: darkred;
+    background-color: white;
+    text-align: center;
+    border-radius:8px;
+}
+#dead_number{
+    width:150px;
+    float: left;
+    font-size: 30px;
+    color: darkred;
+    background-color: white;
+    text-align: center;
+    border-radius:8px;
+}
+.text{
+    width:150px;
     float: left;
 }
-#compane{
-    width:130px;
+.compane{
+    width:150px;
     float: left;
     font-size: 15px;
     color: goldenrod;
 }
 #showMap{
     margin: 150px auto 100px auto;
-    width: 800px;
+    width: 1000px;
 }
 .head{
-    width: 800px;
+    width: 1000px;
     clear: both;
     text-align:center;
     margin-top: 20px;
@@ -91,48 +127,51 @@ button{
     border-radius:8px;
 }
 #newsList{
-    width:800px;
+    width:1000px;
     clear: both;
     margin:100px auto;
 }
 #News{
-    width:700px;
+    width:800px;
     margin:0 auto;
     background-color: silver;
     padding: 5px 5px 2px 5px;
     border-radius:8px;
 }
 #News>ul{
-    width:660px;
+    width:760px;
     margin:0 auto;
     background-color: white;
+    border-radius:8px;
 }
 #title{
-    width:800px;
+    width:1000px;
     display:block;
     clear: both;
     text-align: left;
+    font-weight: 1000;
 }
 #introducte{
-    width:660px;
+    width:760px;
     display:block;
     clear: both;
     text-align: left;
     font-size: small;
 }
 #more{
-    width:800px;
+    width:1000px;
     display:block;
     clear: both;
     text-align: center;
     color: blue;
-
+    font-size: larger;
 }
 #back{
     border-style: solid;
-    font-size:small;
-    width:100px;
+    font-size:larger;
+    width:150px;
     clear: both;
+    background-color: rgb(120, 210, 240);
 }
 li{
     list-style-type:none;
