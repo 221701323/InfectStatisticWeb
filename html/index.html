@@ -47,11 +47,9 @@
                 <span class="head-point"></span>
                 <span class="head-text">全国疫情分布</span>
             </div>
-            <div id="map"></div>
-            <div class="button-position">
-                <button>现有确诊</button>
-                <button>累计确诊</button>
-            </div>
+            <div id="map" style="width: 80% auto; height: 400px;"></div>
+            <button class="currentConfirmedCount">现有确诊</button>
+            <button class="confirmedCount">累计确诊</button>
         </div>
         <div id="lineChart">
             <div class="head">
@@ -59,10 +57,8 @@
                 <span class="head-text">全国疫情趋势</span>
             </div>
             <div id="lineChart"></div>
-            <div class="button-position">
-                <button>现有确诊</button>
-                <button>累计确诊</button>
-            </div>
+            <button class="currentConfirmedCount">现有确诊</button>
+            <button class="confirmedCount">累计确诊</button>
         </div>
         <div id="newsList">
             <div class="head">
@@ -87,5 +83,9 @@
             <div id="img"></div>
         </div>
     </div>
+    <script src="https://cdn.bootcss.com/echarts/3.7.1/echarts.min.js"></script>
+    <script src="http://m.sinovision.net/static/js/china.js"></script>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script src="../js/index.js"></script>
 </body>
 </html>
