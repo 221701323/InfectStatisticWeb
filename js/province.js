@@ -99,6 +99,6 @@ document.getElementById("confirmedCount_line").onclick=function(){
     inLineChart("confirmedCount");
 }
 window.onload=function(){
-    this.init();
+    init();
     inLineChart("confirmedCount");
 }

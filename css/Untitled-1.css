@@ -46,7 +46,7 @@ span.head-point{
     clear: both;
     margin: 20px auto 50px auto;
 }
-#list{
+.list{
     width:200px;
     float: left;
     text-align:center;
@@ -144,14 +144,14 @@ button{
     background-color: white;
     border-radius:8px;
 }
-#title{
+.title{
     width:1000px;
     display:block;
     clear: both;
     text-align: left;
     font-weight: 1000;
 }
-#introducte{
+.introducte{
     width:760px;
     display:block;
     clear: both;
@@ -175,4 +175,11 @@ button{
 }
 li{
     list-style-type:none;
+}
+#lineChart{
+    width:80% auto;
+    height: 400px;
+    border-style: dashed;
+    border-width: 1px;
+    border-color: aliceblue;
 }

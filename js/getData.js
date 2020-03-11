@@ -16,13 +16,13 @@ function GET_timeData(date) {
             // console.log(DATA);
         }
     });
-    timeData.forEach(element => {
-        var time = new Date(element.updateTime)
-        if (time.getMonth() == date.getMonth() && time.getDay() == date.getDay() && time.getFullYear() == date.getFullYear()) {
-            return element;
-        }
-    });
-    return false;
+    // timeData.forEach(element => {
+    //     var time = new Date(element.updateTime)
+    //     if (time.getMonth() == date.getMonth() && time.getDay() == date.getDay() && time.getFullYear() == date.getFullYear()) {
+    //         return element;
+    //     }
+    // });
+    return timeData;
 }
 function timeData() {
     var date = new Data();
@@ -55,8 +55,10 @@ function timeData() {
     };
     return Data;
 }
+
+
+
 function GET_areaData(i, provinceName) {
-    var areaData;
     $.ajax({
         async: false,
         type: 'get',
@@ -70,29 +72,40 @@ function GET_areaData(i, provinceName) {
             alert("操作失败!");
         },
         success: function (result) {
-            areaData = result.results;
-            // console.log(areaData);
+            return result.results;
+            // console.log(result);
+            // result.results.forEach(element =>{
+            //     if (time.getMonth() == date.getMonth() && time.getDay() == date.getDay() && time.getFullYear() == date.getFullYear()) {
+            //         return element;
+            //     }
+            // });
         }
     });
-    return areaData;
 }
-function datein(type) {
+function mapDate(type) {
     var n = 0;
-    var areaData = GET_areaData(1, null);
+    var areaData = GET_areaData(0, null);
     var data = new Array();
     areaData.forEach(element => {
         if (element.countryName == "中国") {
-            data[n] = { name: element.provinceShortName, value: element.confirmedCount }
-            n++;
+            if(type=="confirmedCount"){
+              data[n] = { name: element.provinceShortName, value: element.confirmedCount }
+                n++;  
+            }else{
+                data[n] = { name: element.provinceShortName, value: element.currentConfirmedCount }
+                n++;
+            }
+            
         }
     });
     return data;
 }
-function GET_provinceData(provinceName,type) {
+function GET_provinceData(provinceName,type,date) {
     var n = 0;
     var data = new Array();
     var data1 = new Array();
-    GET_areaData(0, provinceName).forEach(element => {
+    date=new Date();
+    GET_areaData(0, provinceName,date).forEach(element => {
         var d = new Date(element.updateTime);
         var str = d.getMonth() + 1 + "月" + d.getDate() + "日";
         if (n == 0 || data1[n / 2] != str) {
