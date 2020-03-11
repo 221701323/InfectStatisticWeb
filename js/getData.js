@@ -17,15 +17,15 @@ function GET_timeData(date) {
         }
     });
     timeData.forEach(element => {
-        var time=new Date(element.updateTime)
-        if(time.getMonth()==date.getMonth()&&time.getDay()==date.getDay()&&time.getFullYear()==date.getFullYear()){
+        var time = new Date(element.updateTime)
+        if (time.getMonth() == date.getMonth() && time.getDay() == date.getDay() && time.getFullYear() == date.getFullYear()) {
             return element;
         }
     });
     return false;
 }
 function timeData() {
-    var date=new Data();
+    var date = new Data();
     var data = GET_timeData(date);
     var Data = {
         currentConfirmed: {//现存确诊人数
@@ -55,7 +55,7 @@ function timeData() {
     };
     return Data;
 }
-function GET_areaData(i,provinceName){
+function GET_areaData(i, provinceName) {
     var areaData;
     $.ajax({
         async: false,
@@ -76,9 +76,9 @@ function GET_areaData(i,provinceName){
     });
     return areaData;
 }
-function datein() {
+function datein(type) {
     var n = 0;
-    var areaData=GET_areaData(1,null);
+    var areaData = GET_areaData(1, null);
     var data = new Array();
     areaData.forEach(element => {
         if (element.countryName == "中国") {
@@ -88,3 +88,36 @@ function datein() {
     });
     return data;
 }
+function GET_provinceData(provinceName,type) {
+    var n = 0;
+    var data = new Array();
+    var data1 = new Array();
+    GET_areaData(0, provinceName).forEach(element => {
+        var d = new Date(element.updateTime);
+        var str = d.getMonth() + 1 + "月" + d.getDate() + "日";
+        if (n == 0 || data1[n / 2] != str) {
+            if (n % 2 == 0&&element.confirmedCount!=null&&element.currentConfirmedCount!=null) {
+                if(type=="confirmedCount"){
+                    data[n / 2] = element.confirmedCount;
+                }
+                if(type=="currentConfirmedCount"){
+                    data[n / 2] = element.currentConfirmedCount;
+                }
+                
+                data1[n / 2] = str;
+            }
+            n++;
+        }
+    });
+    var mydata = { name: data1, value: data };
+    for (var first = 0, last = mydata.name.length - 1; first < last; first++, last--) {
+        var temp = mydata.name[first];
+        mydata.name[first] = mydata.name[last];
+        mydata.name[last] = temp;
+        temp = mydata.value[first];
+        mydata.value[first] = mydata.value[last];
+        mydata.value[last] = temp;
+    }
+    return mydata;
+}
+

@@ -1,4 +1,4 @@
-var mydata = datein();
+var mydata = datein("confirmedCount");
 var option = {
     backgroundColor: 'rgba(193, 240, 228, 1)',
     title: {
