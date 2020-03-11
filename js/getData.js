@@ -1,25 +1,32 @@
-var latestData;
-function GET_latestData(i) {
+function GET_timeData(date) {
+    var timeData;
     $.ajax({
         async: false,
         type: 'get',
         url: 'https://lab.isaaclin.cn/nCoV/api/overall',
         dataType: 'json',
         data: {
-            latest: i,
+            latest: 0,
         },
         error: function (XmlHttpRequest, textStatus, errorThrown) {
             alert("操作失败!");
         },
         success: function (result) {
-            latestData = result.results;
-            console.log(DATA);
+            timeData = result.results;
+            // console.log(DATA);
         }
     });
+    timeData.forEach(element => {
+        var time=new Date(element.updateTime)
+        if(time.getMonth()==date.getMonth()&&time.getDay()==date.getDay()&&time.getFullYear()==date.getFullYear()){
+            return element;
+        }
+    });
+    return false;
 }
-function latestData() {
-    GET_latestData(1);
-    var data = latestData[0];
+function timeData() {
+    var date=new Data();
+    var data = GET_timeData(date);
     var Data = {
         currentConfirmed: {//现存确诊人数
             count: data.currentConfirmedCount,
@@ -47,4 +54,36 @@ function latestData() {
         }
     };
     return Data;
+}
+function GET_areaData(){
+    var areaData;
+    $.ajax({
+        async: false,
+        type: 'get',
+        url: 'https://lab.isaaclin.cn/nCoV/api/area',
+        dataType: 'json',
+        data: {
+            latest: 1,
+        },
+        error: function (XmlHttpRequest, textStatus, errorThrown) {
+            alert("操作失败!");
+        },
+        success: function (result) {
+            areaData = result.results;
+            // console.log(areaData);
+        }
+    });
+    return areaData;
+}
+function datein() {
+    var n = 0;
+    var areaData=GET_areaData();
+    var data = new Array();
+    areaData.forEach(element => {
+        if (element.countryName == "中国") {
+            data[n] = { name: element.provinceShortName, value: element.confirmedCount }
+            n++;
+        }
+    });
+    return data;
 }
