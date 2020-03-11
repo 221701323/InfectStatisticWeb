@@ -7,10 +7,30 @@ html,body{
     border-width: 3px;
     border-color: cadetblue;
 }
-.head-point{
+.head{
+    clear: both;
+    height:70px;
+}
+span.head-point{
+    display:block;
+    float: left;
     border-width: 1px;
     width:20px;
+    height: 70px;
     background-color:blue;
+}
+.head-text{
+    font-size: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    display:block;
+    float: left;
+}
+#time{
+    color: grey;
+    float: left;
+    position: relative;
+    top:40px;
+    left:30px;
 }
 #showData{
     width:200px;
@@ -23,6 +43,7 @@ html,body{
 #data{
     width: 800px;
     clear: both;
+    margin: 0 auto;
 }
 #list{
     width:160px;
@@ -30,20 +51,26 @@ html,body{
     text-align:center;
 }
 #number{
-    width:160px;
+    width:130px;
     float: left;
-    font-size: 50px;
+    font-size: 30px;
     color: darkred;
+    background-color: white;
+    text-align: center;
 }
 #text{
-    width:160px;
+    width:130px;
     float: left;
 }
 #compane{
-    width:160px;
+    width:130px;
     float: left;
     font-size: 15px;
     color: goldenrod;
+}
+#showMap{
+    margin: 0 auto;
+    width: 800px;
 }
 .head{
     width: 800px;
@@ -51,9 +78,8 @@ html,body{
     text-align:center;
 }
 button{
-    display:block;
-    width: 400px;
-    float:left;
+    font-size: 10px;
+    text-align: center;
 }
 #newsList{
     width:400px;
@@ -78,6 +104,8 @@ button{
     text-align: center;
 }
 #back{
+    border-style: solid;
     font-size:small;
-    width:80px;
+    width:100px;
+    clear: both;
 }
