@@ -116,4 +116,5 @@ window.onload=function(){
     init();
     inDate();
     inLineChart("confirmedCount");
+    inNews(GET_provinceName());
 }

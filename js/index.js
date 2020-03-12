@@ -1,3 +1,27 @@
+var date=new Date();
+//实现对第一部分个数据的填充
+//未实现根据date选择数据
+//通过timeData()获取数据
+function inDate(){
+    var lists=document.getElementById("data").children;
+    var TimeData=timeData(null);
+    var strs=['confrimed','currentConfirmed','suspected','cured','dead']
+    for(var i=0;i<strs.length;i++){
+        lists[i].children[0].innerHTML=TimeData[strs[i]]['count'];
+        if(TimeData[strs[i]]['Incr']>=0){
+            lists[i].children[2].innerHTML+="+"+TimeData[strs[i]]['Incr'];
+        }else{
+            lists[i].children[2].innerHTML+=TimeData[strs[i]]['Incr'];
+        }
+        
+    }
+}
+
+//从mapDate(type)获取数据进行地图绘画
+//可选择type有
+//currentConfirmedCount
+//confirmedCount
+//date暂时还没实现
 function inMap(type,date){
     var mydata = mapDate(type);
     var title;
@@ -11,7 +35,7 @@ function inMap(type,date){
         backgroundColor: 'rgba(193, 240, 228, 1)',
         title: {
             text: title,
-            subtext: "更新时间"+date.toISOString(),
+            subtext: "更新时间"+date.toUTCString(),
             x: 'center'
         },
         tooltip: {
@@ -57,30 +81,23 @@ function inMap(type,date){
         window.location.assign(encodeURI(url));
     });
 }
-function inDate(){
-    var lists=document.getElementById("data").children;
-    var TimeData=timeData(null);
-    var strs=['confrimed','currentConfirmed','suspected','cured','dead']
-    for(var i=0;i<strs.length;i++){
-        lists[i].children[0].innerHTML=TimeData[strs[i]]['count'];
-        if(TimeData[strs[i]]['Incr']>=0){
-            lists[i].children[2].innerHTML+="+"+TimeData[strs[i]]['Incr'];
-        }else{
-            lists[i].children[2].innerHTML+=TimeData[strs[i]]['Incr'];
-        }
-        
-    }
-}
 
+//从GET_chinaData(type)获取数据绘制线图
+//可选类型包括
+//confirmedCount
+//cured
+//还为实现类型
+//confirmedIncr
+//dead
 function inLineChart(type){
     var title;
     if(type=="confirmedCount"){
         title="累计确诊人数";
     }
-    if(type=="currentConfirmedCount"){
-        title="现有确诊人数";
+    if(type=="cured"){
+        title="治愈人数";
     }
-    var mydata=GET_provinceData(GET_timeData(0),type);
+    var mydata=GET_chinaData(type);
     var option = {
         title: {
             text: title
@@ -137,13 +154,25 @@ function inLineChart(type){
     chart.setOption(option);
 }
 
-var date=new Date();
-inMap("currentConfirmedCount",date);
-// inLineChart("currentConfirmedCount");
-inDate();
+//一系列按钮绑定
 document.getElementById("currentConfirmedCount_map").onclick=function(){
     inMap("currentConfirmedCount",date);
 }
 document.getElementById("confirmedCount_map").onclick=function(){
     inMap("confirmedCount",date);
 }
+
+document.getElementById("cured_line").onclick=function(){
+    inLineChart("cured");
+}
+document.getElementById("confirmedCount_line").onclick=function(){
+    inLineChart("confirmedCount");
+}
+
+// 调用函数填充数据
+inDate();
+//调用函数绘制趋势
+inLineChart("confirmedCount");
+inNews(null);
+//调用函数绘制地图
+inMap("currentConfirmedCount",date);

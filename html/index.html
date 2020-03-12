@@ -61,8 +61,8 @@
             </div>
             <div id="lineChart"></div>
             <div class="button-position">
-                <button class="currentConfirmedCount_line">现有确诊</button>
-                <button class="confirmedCount_line">累计确诊</button>
+                <button id="cured_line">治愈趋势</button>
+                <button id="confirmedCount_line">累计确诊</button>
             </div>
         </div>
         <div id="newsList">
@@ -80,18 +80,12 @@
                 <span id="more">查看更多内容</span>
             </div>
         </div>
-        <div id="rumor">
-            <div class="head">
-                <span class="head-point"></span>
-                <span class="head-text">疫情速递</span>
-            </div>
-            <div id="img"></div>
-        </div>
     </div>
     <script src="../js/echarts.min.js"></script>
     <script src="../js/china.js"></script>
     <script src="../js/jquery.min.js"></script>
     <script src="../js/getData.js"></script>
+    <script src="../js/news.js"></script>
     <script src="../js/index.js"></script>
 </body>
 </html>
