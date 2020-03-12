@@ -1,4 +1,4 @@
-function news(provinceName){
+function news(provinceName,n){
     var newsData;
     $.ajax({
         async: false,
@@ -7,7 +7,7 @@ function news(provinceName){
         dataType: 'json',
         data: {
             province:provinceName,
-            num:5
+            num:n
         },
         error: function (XmlHttpRequest, textStatus, errorThrown) {
             alert("操作失败!");
@@ -19,9 +19,10 @@ function news(provinceName){
     return newsData;
 }
 
-function inNews(provinceName){
-    var newlists=news(provinceName);
+function inNews(provinceName,n){
+    var newlists=news(provinceName,n);
     var list=document.getElementById("list");
+    list.innerHTML="";
     newlists.forEach(element => {
         list.innerHTML+="<li><a class='title' href='"+element.sourceUrl+"'>"+element.title+"</a>"+
         "<span class='introducte'>"+element.summary+"</span></li>"

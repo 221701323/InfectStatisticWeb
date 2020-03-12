@@ -30,24 +30,19 @@ function GET_timeData(i) {
 //全国数据还为根据选择的date选取数据
 //接口的全国数据可能会出现没有新增的数据（未处理）
 //省份的数据没有新增数据（未处理）
-function timeData(provinceName) {//整理数据，获取合理的数据
-    var date = new Date();
+function timeData(areaData,date) {//整理数据，获取合理的数据
     var data = null;
-    var timeData;
-    if (provinceName != null) {
-        timeData = GET_areaData(0, provinceName);
-        // console.log(i)
-    } else {
-        timeData = GET_timeData(1);
-    }
-    timeData.forEach(element => {
+    areaData.forEach(element => {
         if (data == null) {
-            var time = new Date(element.updateTime)
-            if (time.getMonth() == date.getMonth() && time.getDay() == date.getDay() && time.getFullYear() == date.getFullYear()) {
+            var time = new Date(element.updateTime);
+            if (time.getMonth() == date.getMonth() && time.getDate() == date.getDate()) {
                 data = element;
             }
         }
     });
+    if(data==null){
+        data=areaData[0];
+    }
     var Data = {
         currentConfirmed: {//现存确诊人数
             count: data.currentConfirmedCount,
@@ -114,9 +109,8 @@ function GET_areaData(i, provinceName) {
 //调用GET_areaData(1, null)获取最新的所有数据
 //选取countryName属性为中国的数据
 //构成地图数据
-function mapDate(type) {
+function mapDate(type,areaData) {
     var n = 0;
-    var areaData = GET_areaData(1, null);
     var data = new Array();
     areaData.forEach(element => {
         if (element.countryName == "中国") {
@@ -165,47 +159,77 @@ function historyData() {
 // curesNum、deathsNum可直接用
 // confirmedNum、suspectedNum需要进行处理，获得增量，而不是直接量
 //已完成cured
+function array_change(in_list)
+{
+    var length=in_list.length;
+    var out_list=new Array(length);
+    for(var i=0;i<length;i++)
+    {
+        if(i==0)
+        {
+            out_list[i]=in_list[i];
+        }
+        else
+        {
+            out_list[i]=in_list[i]-in_list[i-1];
+        }
+    }
+    return out_list;
+}
 function GET_chinaData(type) {
     var n = 0;
     var data = new Array();
     var data1 = new Array();
     historyData().forEach(element => {
         var str = element.date;
-        if (type == "confirmedCount") {
+        if (type == "confirmedIncr") {
             data[n] = element.confirmedNum;
         }
-        if (type == "cured") {
+        else if (type == "cured") {
             data[n] = element.curesNum;
+        }
+        else if(type=="dead"){
+            data[n] = element.deathsNum;
+        }else{
+            data[n] = element.suspectedNum;
         }
         data1[n] = str;
         n++;
     });
+    if(type=="confirmedIncr"||type=="suspectedIncr"){
+        data=array_change(data);
+    }
     var mydata = { name: data1, value: data };
-    console.log(mydata);
     return mydata;
 }
 
 
-function GET_provinceData(provinceName, type) {
+function GET_provinceData(provinceData, type) {
     var n = 0;
     var data = new Array();
     var data1 = new Array();
-    GET_areaData(0, provinceName).forEach(element => {
+    provinceData.forEach(element => {
         var d = new Date(element.updateTime);
         var str = d.getMonth() + 1 + "月" + d.getDate() + "日";
         if (n == 0 || data1[n] != str) {
             if (element.confirmedCount != null && element.currentConfirmedCount != null) {
-                if (type == "confirmedCount") {
+                if (type == "confirmedIncr") {
                     data[n] = element.confirmedCount;
-                }
-                if (type == "currentConfirmedCount") {
-                    data[n] = element.currentConfirmedCount;
+                }else if (type == "suspectedIncr") {
+                    data[n] = element.suspectedCount;
+                }else if(type=="dead"){
+                    data[n] = element.deadCount;
+                }else{
+                    data[n] = element.curedCount;
                 }
                 data1[n] = str;
             }
             n++;
         }
     });
+    if(type=="confirmedIncr"||type=="suspectedIncr"){
+        data=array_change(data);
+    }
     var mydata = { name: data1, value: data };
     for (var first = 0, last = mydata.name.length - 1; first < last; first++, last--) {
         var temp = mydata.name[first];
