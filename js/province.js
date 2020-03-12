@@ -9,7 +9,7 @@ function GET_provinceName() {
         string += "维吾尔自治区";
     } else if (string == "宁夏") {
         string += "回族自治区";
-    } else if (string == "澳门" && string == "台湾" || string == "香港") {
+    } else if (string == "澳门" || string == "台湾" || string == "香港") {
         string = string;
     } else if (string == "北京" || string == "上海" || string == "重庆" || string == "天津") {
         string += "市";
@@ -92,6 +92,20 @@ function inLineChart(type){
     chart.setOption(option);
 }
 
+function inDate(){
+    var lists=document.getElementById("data").children;
+    var TimeData=timeData(GET_provinceName());
+    var strs=['confrimed','currentConfirmed','suspected','cured','dead']
+    for(var i=0;i<strs.length;i++){
+        lists[i].children[0].innerHTML=TimeData[strs[i]]['count'];
+        if(TimeData[strs[i]]['Incr']>=0){
+            lists[i].children[2].innerHTML+="+"+TimeData[strs[i]]['Incr'];
+        }else{
+            lists[i].children[2].innerHTML+=TimeData[strs[i]]['Incr'];
+        }
+        
+    }
+}
 document.getElementById("currentConfirmedCount_line").onclick=function(){
     inLineChart("currentConfirmedCount");
 }
@@ -100,5 +114,6 @@ document.getElementById("confirmedCount_line").onclick=function(){
 }
 window.onload=function(){
     init();
+    inDate();
     inLineChart("confirmedCount");
 }

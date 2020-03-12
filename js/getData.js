@@ -1,4 +1,4 @@
-function GET_timeData(date) {
+function GET_timeData(i) {//返回最新发布的内容，全国的状况
     var timeData;
     $.ajax({
         async: false,
@@ -6,27 +6,37 @@ function GET_timeData(date) {
         url: 'https://lab.isaaclin.cn/nCoV/api/overall',
         dataType: 'json',
         data: {
-            latest: 0,
+            latest: i,
         },
         error: function (XmlHttpRequest, textStatus, errorThrown) {
             alert("操作失败!");
         },
         success: function (result) {
             timeData = result.results;
-            // console.log(DATA);
+            console.log(timeData);
         }
     });
-    // timeData.forEach(element => {
-    //     var time = new Date(element.updateTime)
-    //     if (time.getMonth() == date.getMonth() && time.getDay() == date.getDay() && time.getFullYear() == date.getFullYear()) {
-    //         return element;
-    //     }
-    // });
     return timeData;
 }
-function timeData() {
-    var date = new Data();
-    var data = GET_timeData(date);
+
+function timeData(provinceName) {//整理数据，获取合理的数据
+    var date = new Date();
+    var data=null;
+    var timeData;
+    if(provinceName!=null){
+        timeData=GET_areaData(0,provinceName);
+        // console.log(i)
+    }else{
+        timeData = GET_timeData(0);
+    }
+    timeData.forEach(element => {
+        if(data==null){
+            var time = new Date(element.updateTime)
+            if (time.getMonth() == date.getMonth() && time.getDay() == date.getDay() && time.getFullYear() == date.getFullYear()) {
+                data=element;
+            }
+        }
+    });
     var Data = {
         currentConfirmed: {//现存确诊人数
             count: data.currentConfirmedCount,
@@ -59,6 +69,7 @@ function timeData() {
 
 
 function GET_areaData(i, provinceName) {
+    var DATA;
     $.ajax({
         async: false,
         type: 'get',
@@ -72,19 +83,15 @@ function GET_areaData(i, provinceName) {
             alert("操作失败!");
         },
         success: function (result) {
-            return result.results;
-            // console.log(result);
-            // result.results.forEach(element =>{
-            //     if (time.getMonth() == date.getMonth() && time.getDay() == date.getDay() && time.getFullYear() == date.getFullYear()) {
-            //         return element;
-            //     }
-            // });
+            DATA= result.results;
+            console.log(DATA);
         }
     });
+    return DATA;
 }
 function mapDate(type) {
     var n = 0;
-    var areaData = GET_areaData(0, null);
+    var areaData = GET_areaData(1, null);
     var data = new Array();
     areaData.forEach(element => {
         if (element.countryName == "中国") {
@@ -100,12 +107,14 @@ function mapDate(type) {
     });
     return data;
 }
-function GET_provinceData(provinceName,type,date) {
+
+
+
+function GET_provinceData(provinceName,type) {
     var n = 0;
     var data = new Array();
     var data1 = new Array();
-    date=new Date();
-    GET_areaData(0, provinceName,date).forEach(element => {
+    GET_areaData(0, provinceName).forEach(element => {
         var d = new Date(element.updateTime);
         var str = d.getMonth() + 1 + "月" + d.getDate() + "日";
         if (n == 0 || data1[n / 2] != str) {
@@ -116,7 +125,6 @@ function GET_provinceData(provinceName,type,date) {
                 if(type=="currentConfirmedCount"){
                     data[n / 2] = element.currentConfirmedCount;
                 }
-                
                 data1[n / 2] = str;
             }
             n++;
