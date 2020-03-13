@@ -6,8 +6,15 @@ function inDate(time,areaDate) {
     var TimeData = timeData(areaDate, time);
     var strs = ['confrimed', 'currentConfirmed', 'suspected', 'cured', 'dead']
     for (var i = 0; i < strs.length; i++) {
-        lists[i].children[0].innerHTML = TimeData[strs[i]]['count'];
-        if (TimeData[strs[i]]['Incr'] >= 0) {
+        if(TimeData[strs[i]]['count']==null){
+            lists[i].children[0].innerHTML ="暂无数据";
+        }else{
+            lists[i].children[0].innerHTML = TimeData[strs[i]]['count'];
+        }
+        
+        if(TimeData[strs[i]]['Incr']==null){
+            lists[i].children[2].innerHTML ="昨天:暂无数据";
+        }else if (TimeData[strs[i]]['Incr'] >= 0) {
             lists[i].children[2].innerHTML = "昨天+" + TimeData[strs[i]]['Incr'];
         } else {
             lists[i].children[2].innerHTML = "昨天" + TimeData[strs[i]]['Incr'];
@@ -168,7 +175,6 @@ document.getElementById("currentConfirmedCount_map").onclick = function () {
 document.getElementById("confirmedCount_map").onclick = function () {
     inMap("confirmedCount", date);
 }
-
 document.getElementById("cured_line").onclick = function () {
     inLineChart("cured");
 }
@@ -194,6 +200,7 @@ document.getElementById("currentTime").onchange = function () {
         inDate(time,overAll0);
     }
 }
+
 var date = new Date();
 var month = date.getMonth() + 1;
 month = month <= 9 ? '0' + month : month;

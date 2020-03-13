@@ -45,12 +45,18 @@ function inDate(areaData, date) {
     var yesterdayDate = timeData(areaData, yesterday);
     var strs = ['confrimed', 'currentConfirmed', 'suspected', 'cured', 'dead']
     for (var i = 0; i < strs.length; i++) {
-        lists[i].children[0].innerHTML = TimeData[strs[i]]['count'];
-        TimeData[strs[i]]['Incr'] = TimeData[strs[i]]['count'] - yesterdayDate[strs[i]]['count'];
-        if (TimeData[strs[i]]['Incr'] >= 0) {
-            lists[i].children[2].innerHTML = "昨日+" + TimeData[strs[i]]['Incr'];
+        if (TimeData[strs[i]]['count'] == null) {
+            lists[i].children[0].innerHTML = "暂无数据";
         } else {
-            lists[i].children[2].innerHTML = "昨日" + TimeData[strs[i]]['Incr'];
+            lists[i].children[0].innerHTML = TimeData[strs[i]]['count'];
+        }
+        TimeData[strs[i]]['Incr'] = TimeData[strs[i]]['count'] - yesterdayDate[strs[i]]['count'];
+        if (TimeData[strs[i]]['Incr'] == null) {
+            lists[i].children[2].innerHTML = "昨天:暂无数据";
+        } else if (TimeData[strs[i]]['Incr'] >= 0) {
+            lists[i].children[2].innerHTML = "昨天+" + TimeData[strs[i]]['Incr'];
+        } else {
+            lists[i].children[2].innerHTML = "昨天" + TimeData[strs[i]]['Incr'];
         }
 
     }
@@ -59,7 +65,7 @@ function inDate(areaData, date) {
 function inLineChart(type) {
     var title;
     if (type == "suspectedIncr") {
-        title = "累计确诊人数";
+        title = "新增疑似病例人数";
     }
     if (type == "cured") {
         title = "治愈人数";
@@ -156,6 +162,7 @@ document.getElementById("more").onclick = function () {
     n = n * 2;
     inNews(GET_provinceName(), n);
 }
+
 var areaData = GET_areaData(0, GET_provinceName());
 var n = 5;
 var date = new Date();
@@ -167,4 +174,9 @@ setTimeout(
         inLineChart("confirmedCount");
     },
     500);
-inNews(GET_provinceName(), n);
+setTimeout(
+    function () {
+        //事件处理
+        inNews(GET_provinceName(), n);
+    },
+    500);

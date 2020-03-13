@@ -203,16 +203,16 @@ function GET_chinaData(type) {
     return mydata;
 }
 
-
 function GET_provinceData(provinceData, type) {
     var n = 0;
     var data = new Array();
     var data1 = new Array();
     provinceData.forEach(element => {
         var d = new Date(element.updateTime);
-        var str = d.getMonth() + 1 + "月" + d.getDate() + "日";
-        if (n == 0 || data1[n] != str) {
-            if (element.confirmedCount != null && element.currentConfirmedCount != null) {
+        var month=d.getMonth() + 1 ;
+        var str = month + "月" + d.getDate() + "日";
+        if (n == 0 || data1[n-1] != str) {
+            if (element.confirmedCount != null && element.suspectedCount != null&& element.deadCount != null&& element.curedCount != null) {
                 if (type == "confirmedIncr") {
                     data[n] = element.confirmedCount;
                 }else if (type == "suspectedIncr") {
@@ -227,9 +227,6 @@ function GET_provinceData(provinceData, type) {
             n++;
         }
     });
-    if(type=="confirmedIncr"||type=="suspectedIncr"){
-        data=array_change(data);
-    }
     var mydata = { name: data1, value: data };
     for (var first = 0, last = mydata.name.length - 1; first < last; first++, last--) {
         var temp = mydata.name[first];
@@ -239,6 +236,9 @@ function GET_provinceData(provinceData, type) {
         mydata.value[first] = mydata.value[last];
         mydata.value[last] = temp;
     }
+    if(type=="confirmedIncr"||type=="suspectedIncr"){
+        mydata.value=array_change(mydata.value);
+    } 
     return mydata;
 }
 
